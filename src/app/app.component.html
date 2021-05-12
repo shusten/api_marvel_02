@@ -19,8 +19,9 @@
              >
           </a>
           <form class="d-flex">
-            <p>Search</p>
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+            [value]="search$ | async" (keyup)="doSearch($event)"
+            >
             
           </form>
     </div>

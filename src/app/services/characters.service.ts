@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { delay, map, switchMap, take, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-
+import { Hero } from '../models/hero'
+import { HeroThumbnail } from '../models/hero-thumbnail'
+import { HeroSubItems } from '../models/hero-sub-items'
+import { HeroSubItem } from '../models/hero-sub-item'
 
 const LIMIT_LOW = 10;
 const LIMIT_MID = 25;
@@ -36,7 +39,6 @@ export class CharactersService {
 
 
   getAllCharacters(): Observable<any>{
-
     return this.characters$ = combineLatest([this.search$, this.page$, this.limit$])
       .pipe(
         switchMap(([search, page, limit]) => {

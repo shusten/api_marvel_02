@@ -27,7 +27,7 @@ export class CharactersService {
   private readonly API = `${environment.MARVEL_API.URL}`;
 
  
-  characters$: Observable<any>;
+  characters$: Observable<Hero[]>;
   
 
   constructor(private http: HttpClient) { }
@@ -38,7 +38,7 @@ export class CharactersService {
 
 
 
-  getAllCharacters(): Observable<any>{
+  getAllCharacters(): Observable<Hero[]>{
     return this.characters$ = combineLatest([this.search$, this.page$, this.limit$])
       .pipe(
         switchMap(([search, page, limit]) => {

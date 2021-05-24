@@ -1,15 +1,7 @@
 <div class="container mt-3" style="padding-bottom: 40px;">
 <div class="row row-cols-1 row-cols-md-3 g-4" >
     <div class="cols" *ngFor="let character of characters$ | async" >
-      <div class="card mb-3 border border-2 border-secondary text-white"  style="width: 20rem; background-color:  rgba(0, 0, 0, 0.76); ">
-        <img src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}" 
-        class="card-img-top" 
-        alt="{{character.name}}">
-        <div class="card-body" style="text-align: center;" >
-          <h5 class="card-title" >{{character.name}}</h5>
-          <a href="{{character.urls[0].url}}" class="btn btn-danger">Details</a>
-        </div>
-      </div>
+      <app-character [character]="character"></app-character>
     </div>
 </div>
 </div>

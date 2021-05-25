@@ -14,11 +14,12 @@ const LIMIT_HIGH = 100;
 const LIMITS = [LIMIT_LOW, LIMIT_MID, LIMIT_HIGH];
 
 const DEFAULT_SEARCH = '';
-const DEFAULT_PAGE = 0;
+const DEFAULT_PAGE = 1;
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class CharactersService {
   limits = LIMITS;
 
@@ -29,10 +30,10 @@ export class CharactersService {
   constructor(private http: HttpClient) {}
 
   search$ = new BehaviorSubject(DEFAULT_SEARCH);
-  page$ = new BehaviorSubject(DEFAULT_PAGE);
-  limit$ = new BehaviorSubject(LIMIT_HIGH);
+  page$   = new BehaviorSubject(DEFAULT_PAGE);
+  limit$  = new BehaviorSubject(LIMIT_HIGH);
 
-  getAllCharacters(): Observable<Hero[]> {
+  getAllCharacters(p: number = 1): Observable<Hero[]> {
     return (this.characters$ = combineLatest([
       this.search$,
       this.page$,
@@ -43,7 +44,7 @@ export class CharactersService {
           apikey: environment.MARVEL_API.API_KEY,
           hash: environment.MARVEL_API.HASH,
           limit: `${limit}`,
-          offset: `${page * limit}`, // page * limit
+          offset: `${(p - 1) * limit}`, // page * limit
         };
         if (search) {
           params.nameStartsWith = search;

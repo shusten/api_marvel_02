@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Hero } from '../models/hero';
 import { CharactersService } from '../services/characters.service';
 
 @Component({
@@ -8,8 +9,8 @@ import { CharactersService } from '../services/characters.service';
   styleUrls: ['./characters.component.css']
 })
 export class CharactersComponent implements OnInit {
-  characters$: Observable<any>;
-  offset$: Observable<any>;
+  characters$: Observable<Hero[]>;
+  page = 1
 
   constructor(private service: CharactersService) { }
 
@@ -17,10 +18,21 @@ export class CharactersComponent implements OnInit {
     this.getCharacters();
   }
 
-  getCharacters() {
-    this.characters$ = this.service.getAllCharacters();
+  getCharacters(p: number = 1) {
+    if (p < 1) {
+      p = 1;
+      this.page = 1;
+    }
+    this.characters$ = this.service.getAllCharacters(p);
   }
 
-  
+  onNext() {
+    this.page++;
+    this.getCharacters(this.page);
+  }
 
+  onPrevious() {
+    this.page--;
+    this.getCharacters(this.page);
+  }
 }

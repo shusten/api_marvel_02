@@ -9,6 +9,7 @@ import { CharactersService } from '../services/characters.service';
 })
 export class CharactersComponent implements OnInit {
   characters$: Observable<any>;
+  offset$: Observable<any>;
 
   constructor(private service: CharactersService) { }
 
@@ -19,5 +20,7 @@ export class CharactersComponent implements OnInit {
   getCharacters() {
     this.characters$ = this.service.getAllCharacters();
   }
+
+  
 
 }
